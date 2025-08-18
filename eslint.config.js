@@ -54,7 +54,6 @@ export default [
         "error",
         {},
         { usePrettierrc: true },
-        { endOfLine: "auto" },
       ],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
