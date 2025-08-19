@@ -6,9 +6,9 @@ import { footerSections } from "../utils/data/footer";
 
 function Layout() {
   return (
-    <main className="bg-dark text-slate-50">
+    <main className="text-primary">
       <Header />
-      <section className="w-full md:w-[85%] mx-auto mb-12 px-4">
+      <section className="w-full mx-auto mb-12">
         <Outlet />
       </section>
       <Footer

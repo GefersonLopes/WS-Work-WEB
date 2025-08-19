@@ -8,10 +8,10 @@
 @layer theme, base, components, utilities;
 
 @theme {
-  --color-primary: #a27b5c;
-  --color-secondary: #f9f8f2;
-  --color-tertiary: #f1997e;
-  --color-quaternary: #1b1b1b;
+  --color-primary: #000;
+  --color-secondary: #2b2b2b;
+  --color-tertiary: #7d7d7d;
+  --color-quaternary: #e8e8e8;
   --color-dark: #000000;
   --color-light: #ffffff;
 
