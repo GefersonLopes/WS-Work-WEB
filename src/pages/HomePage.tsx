@@ -1,62 +1,36 @@
-import { lazy, Suspense } from "react";
+import AnnounceSection from "../components/layout/AnnounceSection";
+import HeroBanner from "../components/layout/Banner";
+import HighlightSection from "../components/layout/HighlightSection";
+import ModelsSection from "../components/layout/ModelsSection";
 
-import AsyncFallback from "../components/layout/AsyncFallback";
-import FallbackSpinner from "../components/layout/FallbackSpinner";
-import Button from "../components/ui/Button";
-import { useInfinitePosts } from "../hooks/useInfinitePosts";
-
-const CardItems = lazy(() => import("../components/layout/CardItems"));
-const MainNews = lazy(() => import("../components/layout/MainNews"));
+// const CardItems = lazy(() => import("../components/layout/CardItems"));
+// const MainNews = lazy(() => import("../components/layout/MainNews"));
 
 function HomePage() {
-  const {
-    data,
-    isLoading,
-    isError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfinitePosts();
+  // const {
+  //   data,
+  //   isLoading,
+  //   isError,
+  //   fetchNextPage,
+  //   hasNextPage,
+  //   isFetchingNextPage,
+  // } = useInfiniteCars();
+
+  // console.log("data", data);
 
   return (
-    <AsyncFallback isLoading={isLoading} isError={isError}>
-      <div className="home mt-22">
-        <h1 className="home__title text-6xl lg:text-8xl font-bold text-center mb-8">
-          Últimas Notícias
-        </h1>
-        <p className="text-md text-center mb-6 font-light">
-          Receba as últimas atualizações e uma experiência mais profunda do
-          Apiki
-        </p>
+    <div className="">
+      <HeroBanner />
 
-        {data && (
-          <>
-            {(() => {
-              const allPosts = data.pages.flatMap((page) => page.posts);
-              const [firstPost, ...otherPosts] = allPosts;
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ModelsSection />
 
-              return (
-                <>
-                  {firstPost && (
-                    <Suspense fallback={<FallbackSpinner />}>
-                      <MainNews key={firstPost.id} {...firstPost} />
-                    </Suspense>
-                  )}
+        <HighlightSection />
 
-                  <div className="home__grid mt-4">
-                    {otherPosts.map((post) => (
-                      <Suspense key={post.id} fallback={<FallbackSpinner />}>
-                        <CardItems key={post.id} {...post} />
-                      </Suspense>
-                    ))}
-                  </div>
-                </>
-              );
-            })()}
-          </>
-        )}
+        <AnnounceSection />
+      </main>
 
-        {hasNextPage && (
+      {/* {hasNextPage && (
           <div className="mt-8 w-full flex items-center justify-center">
             <Button
               type="button"
@@ -67,9 +41,8 @@ function HomePage() {
               {isFetchingNextPage ? "Carregando…" : "Carregar mais..."}
             </Button>
           </div>
-        )}
-      </div>
-    </AsyncFallback>
+        )} */}
+    </div>
   );
 }
 

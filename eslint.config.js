@@ -50,11 +50,7 @@ export default [
       "unused-imports": unusedImports,
     },
     rules: {
-      "prettier/prettier": [
-        "error",
-        {},
-        { usePrettierrc: true },
-      ],
+      "prettier/prettier": ["error", {}, { usePrettierrc: true }],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "unused-imports/no-unused-imports": "error",

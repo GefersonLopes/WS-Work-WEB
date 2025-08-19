@@ -1,18 +1,18 @@
+import clsx from "clsx";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
-import Button from "../Button";
+import { Link } from "../Link";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const links = [
     { label: "Início", href: "/", current: true },
-    { label: "Story", href: "/story", current: false },
-    { label: "Menu", href: "/menu", current: false },
-    { label: "Espaço", href: "/space", current: false },
-    { label: "Comunidade", href: "/community", current: false },
-    { label: "Notícias", href: "/news", current: false },
+    { label: "Modelos", href: "/models", current: false },
+    { label: "Marcas", href: "/brands", current: false },
+    { label: "Anunciar", href: "/announce", current: false },
+    { label: "Estoque", href: "/cars", current: false },
   ];
 
   return (
@@ -25,68 +25,60 @@ const Header = () => {
       </a>
 
       <nav
-        className="w-full bg-white py-4 shadow-sm"
+        className="w-full bg-white py-4"
         aria-label="Menu de navegação principal"
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-6">
+        <div className="max-w-4xl mx-auto flex items-center justify-between px-6">
+          <button
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            aria-controls="mobile-menu"
+            aria-expanded={mobileMenuOpen}
+            className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
+          >
+            {mobileMenuOpen ? (
+              <X color="black" size={24} />
+            ) : (
+              <Menu color="black" size={24} />
+            )}
+          </button>
+
           <h1 className="text-2xl font-bold text-gray-900">
             <a
               href="/"
               className="inline-flex items-center focus:outline-none focus:ring-2 focus:ring-amber-700"
             >
-              Apiki
+              WS Work
               <span className="text-amber-700 ml-1">Geferson</span>
             </a>
           </h1>
 
-          <ul className="hidden md:flex items-center space-x-4 lg:space-x-8 text-gray-600">
+          <ul className="hidden md:flex items-center space-x-1">
             {links.map(({ label, href, current }) => (
               <li key={label}>
-                <a
+                <Link
                   href={href}
-                  className="transition-colors focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  className={clsx(
+                    "transition-colors focus:outline-none",
+                    "rounded-full px-4 py-1 text-sm font-medium",
+                    "!no-underline text-primary",
+                    current
+                      ? "text-white bg-primary "
+                      : "hover:text-white hover:bg-tertiary",
+                  )}
                   aria-current={current ? "page" : undefined}
                 >
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
-
-          <div className="flex items-center space-x-4">
-            <Button
-              type="button"
-              className="py-2 px-5 rounded-none hidden lg:inline-block"
-            >
-              Ordem
-            </Button>
-            <Button
-              type="button"
-              className="!bg-transparent border border-primary !text-primary py-2 px-5 rounded-none hidden md:inline-block"
-            >
-              Entrar
-            </Button>
-
-            <button
-              onClick={() => setMobileMenuOpen((o) => !o)}
-              aria-controls="mobile-menu"
-              aria-expanded={mobileMenuOpen}
-              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
-            >
-              {mobileMenuOpen ? (
-                <X color="black" size={24} />
-              ) : (
-                <Menu color="black" size={24} />
-              )}
-            </button>
-          </div>
         </div>
 
         <div
           id="mobile-menu"
           className={`
             fixed inset-0 z-50 bg-white md:hidden
-            transform ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}
+            transform ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
             transition-transform duration-300 ease-in-out
           `}
           aria-hidden={!mobileMenuOpen}
@@ -102,31 +94,24 @@ const Header = () => {
           </div>
           <ul className="flex flex-col space-y-2 px-6 pt-4 pb-2 text-gray-600">
             {links.map(({ label, href, current }) => (
-              <li key={label}>
-                <a
+              <li key={label} className="w-full text-center">
+                <Link
                   href={href}
-                  className="block py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  className={clsx(
+                    "transition-colors focus:outline-none",
+                    "rounded-full px-4 py-1 text-sm font-medium",
+                    "!no-underline text-primary w-full h-8 flex items-center justify-center",
+                    current
+                      ? "text-white bg-primary "
+                      : "hover:text-white hover:bg-tertiary",
+                  )}
                   aria-current={current ? "page" : undefined}
                 >
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
-          <div className="flex flex-col space-y-2 px-6 pb-4">
-            <a
-              href="/order"
-              className="block text-center bg-amber-700 text-white py-2 px-5 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
-            >
-              Ordem
-            </a>
-            <a
-              href="/login"
-              className="block text-center border border-amber-700 text-amber-700 py-2 px-5 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
-            >
-              Entrar
-            </a>
-          </div>
         </div>
       </nav>
     </header>

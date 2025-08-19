@@ -19,20 +19,21 @@ const Footer = ({
   className?: string;
 }) => {
   return (
-    <footer className={clsx("w-full bg-secondary text-dark py-8", className)}>
+    <footer className={clsx("w-full bg-light text-dark py-8", className)}>
+      <hr className="w-[90%] mx-auto mb-8 border-gray-400" />
       <div className="container mx-auto px-4 md:px-12 flex flex-col md:flex-row justify-between items-center">
         {logo && (
           <div
             className="mb-6 md:mb-0 flex items-center cursor-pointer"
             onClick={() => {
-              window.location.href = "/";
+              window.location.href = "https://www.linkedin.com/in/algeferson/";
             }}
           >
             {typeof logo === "string" ? (
               <Image
                 src={logo}
                 alt="Logo"
-                className=" w-24 h-24 md:w-50 md:h-50 lg:w-50 lg:h-50 object-fit rounded-full"
+                className=" w-16 h-16 md:w-16 md:h-16 lg:w-16 lg:h-16 object-fit rounded-lg"
               />
             ) : (
               logo
@@ -79,6 +80,7 @@ const Footer = ({
           </div>
         )}
       </div>
+      <p className="text-center mt-20">© 2025 Todos os direitos reservados.</p>
     </footer>
   );
 };
