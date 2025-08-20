@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CiSearch } from "react-icons/ci";
+import { useSearchParams } from "react-router-dom";
 
 import AsyncFallback from "../components/layout/AsyncFallback";
 import CarsList from "../components/layout/CarsList";
@@ -15,11 +16,14 @@ type FormValues = {
 };
 
 function CarsPages() {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search");
+
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: { search: "" },
   });
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(searchQuery || "");
 
   const onSubmit = (values: FormValues) => {
     setSearchTerm(values.search.trim());
