@@ -17,9 +17,9 @@ function HighlightSection() {
           }
         >
           <FigureCard
-            id={1}
+            id={9}
             image="/assets/img/macan.png"
-            path="/models"
+            path="/cars"
             className="col-span-2 md:col-span-2 lg:!h-auto"
           />
         </Suspense>
@@ -32,9 +32,9 @@ function HighlightSection() {
           }
         >
           <FigureCard
-            id={2}
+            id={9}
             image="/assets/img/text macan.png"
-            path="/models"
+            path="/cars"
             className="col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 lg:!h-auto bg-dark"
           />
         </Suspense>

@@ -109,12 +109,8 @@ export const Image: React.FC<ImageProps> = ({
       }}
     >
       {!showImg && (
-        <div className="w-full h-full min-h-[120px] bg-gray-100">
-          {placeholder ?? (
-            <div className="flex items-center justify-center w-full h-full">
-              <Spinner />
-            </div>
-          )}
+        <div className="w-full h-full min-h-[120px] bg-gray-100 flex items-center justify-center">
+          {placeholder ?? <Spinner />}
         </div>
       )}
 

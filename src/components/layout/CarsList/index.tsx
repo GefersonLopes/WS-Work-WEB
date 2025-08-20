@@ -29,7 +29,7 @@ export default function CarsList({ items }: { items: Car[] }) {
             price={car.valor}
             image={getModelImage(car.nome_modelo)}
             badge={car.combustivel}
-            to={`/carros/${car.id}`}
+            to={`/cars/${car.id}`}
             className="w-full max-w-[680px]"
           />
         </Suspense>

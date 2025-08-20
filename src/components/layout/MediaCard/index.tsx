@@ -8,6 +8,7 @@ type Media = {
   id: number;
   name: string;
   image: string;
+  type?: string;
 };
 
 function MediasCard({
@@ -37,6 +38,7 @@ function MediasCard({
                 <FigureCard
                   id={item.id}
                   name={item.name}
+                  type={item.type ?? ""}
                   image={item.image}
                   path={path}
                 />

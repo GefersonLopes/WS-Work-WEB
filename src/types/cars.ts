@@ -1,3 +1,5 @@
+import type { Model } from "./models";
+
 export interface Car {
   id: number;
   timestamp_cadastro: string;
@@ -22,4 +24,15 @@ export interface Page {
   currentPage: number;
   totalPages: number;
   cars: Car[];
+}
+
+export interface GetCar {
+  id: number;
+  createdAt: string;
+  model: Model;
+  modelId: number;
+  ano: number;
+  combustivel: string;
+  num_portas: number;
+  cor: string;
 }

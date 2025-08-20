@@ -1,11 +1,11 @@
-export interface Brand {
-  id: number;
-  name: string;
-}
+import type { Brand } from "./brands";
 
 export interface Model {
   id: number;
   brand: Brand;
+  brandId: number;
+  nome: string;
+  fipeValue: number;
 }
 
 export interface ModelsResponse {

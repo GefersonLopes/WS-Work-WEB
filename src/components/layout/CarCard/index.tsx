@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+import { currency } from "../../../utils/generics/formatMoneyBr";
 import Image from "../../ui/Img";
 
 type CarCardProps = {
@@ -15,12 +16,6 @@ type CarCardProps = {
   to?: string;
   className?: string;
 };
-
-const currency = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  minimumFractionDigits: 2,
-});
 
 function Badge({ label }: { label: string }) {
   const isHibrido =

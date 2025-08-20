@@ -6,6 +6,7 @@ import { Link } from "../../ui/Link";
 
 function FigureCard({
   id,
+  type,
   name,
   image,
   path,
@@ -14,12 +15,18 @@ function FigureCard({
   id: number;
   name?: string;
   image: string;
+  type?: string;
   path?: string;
   className?: string;
 }) {
   return (
     <Link
-      href={(path && `${path}/${id}`) || ""}
+      to={{
+        pathname: id && !type ? `${path}/${id}` : path,
+        search: type
+          ? `?${new URLSearchParams({ search: type }).toString()}`
+          : "",
+      }}
       className={clsx(
         "group block overflow-hidden rounded-xl relative",
         className,
