@@ -1,4 +1,4 @@
-const IMG_PATH = "/public/assets/img/cars/";
+const IMG_PATH = "/assets/img/cars/";
 
 function normalize(s: string) {
   return s

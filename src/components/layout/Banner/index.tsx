@@ -18,7 +18,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
   titleLines = ["Qualidade,", "Segurança,", "Transparência."],
   ctaLabel = "Acessar estoque completo",
   ctaHref = "/estoque",
-  imgSrc = "/public/assets/img/cars/banner/banner.png",
+  imgSrc = "/assets/img/cars/banner/banner.png",
   imgAlt = "Carro esportivo cinza visto de lado",
 }) => {
   return (
@@ -58,7 +58,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
                 <picture>
                   <source
                     media="(min-width: 1700px)"
-                    srcSet="/public/assets/img/cars/banner/banner2.png"
+                    srcSet="/assets/img/cars/banner/banner2.png"
                   />
                   <Image
                     src={imgSrc}

@@ -1,6 +1,6 @@
 import MediasCard from "../MediaCard";
 
-const pathImg = "/public/assets/img/cars/models/";
+const pathImg = "/assets/img/cars/models/";
 
 const models = [
   {
