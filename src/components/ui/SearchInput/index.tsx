@@ -1,10 +1,30 @@
 import clsx from "clsx";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 
 import type { SearchInputProps } from "./types";
 
-const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ placeholder = "Buscar…", size = "md", className, ...props }, ref) => {
+type Props = SearchInputProps & {
+  onClear?: () => void;
+};
+
+const SearchInput = forwardRef<HTMLInputElement, Props>(
+  (
+    { placeholder = "Buscar…", size = "md", className, onClear, ...props },
+    ref,
+  ) => {
+    const innerRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+      const el = innerRef.current;
+      if (!el) return;
+      const handler = (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        if (target.value === "") onClear?.();
+      };
+      el.addEventListener("search", handler);
+      return () => el.removeEventListener("search", handler);
+    }, [onClear]);
+
     const sizeClasses: Record<string, string> = {
       sm: "h-7 w-40 md:w-56",
       md: "h-9 w-56 md:w-72",
@@ -13,7 +33,12 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
 
     return (
       <input
-        ref={ref}
+        ref={(node) => {
+          innerRef.current = node;
+          if (typeof ref === "function") ref(node);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          else if (ref) (ref as any).current = node;
+        }}
         type="search"
         placeholder={placeholder}
         className={clsx(

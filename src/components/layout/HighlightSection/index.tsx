@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 
+import Spinner from "../../ui/Spinner";
 import Title from "../Title";
 const FigureCard = lazy(() => import("../figureCard"));
 
@@ -8,7 +9,13 @@ function HighlightSection() {
     <section>
       <Title title="Destaque Semanal" />
       <main className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Suspense fallback={<div>Carregando...</div>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex items-center justify-center">
+              <Spinner />
+            </div>
+          }
+        >
           <FigureCard
             id={1}
             image="/public/assets/img/macan.png"
@@ -17,7 +24,13 @@ function HighlightSection() {
           />
         </Suspense>
 
-        <Suspense fallback={<div>Carregando...</div>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex items-center justify-center">
+              <Spinner />
+            </div>
+          }
+        >
           <FigureCard
             id={2}
             image="/public/assets/img/text macan.png"

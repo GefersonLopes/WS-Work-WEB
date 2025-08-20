@@ -5,4 +5,5 @@ export interface AsyncFallbackProps {
   loadingContent?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  isLength?: boolean;
 }
