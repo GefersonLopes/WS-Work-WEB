@@ -23,7 +23,7 @@ export default function SocialMidia({
       {links?.map((link) => (
         <Link
           key={uuidv4()}
-          href={link.href}
+          to={link.href}
           target="_blank"
           aria-label={link.title}
         >
