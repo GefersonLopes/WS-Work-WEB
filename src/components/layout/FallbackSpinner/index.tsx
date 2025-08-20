@@ -3,7 +3,7 @@ import FallbackContainer from "../FallbackContainer";
 
 function FallbackSpinner() {
   return (
-    <FallbackContainer>
+    <FallbackContainer className="w-screen h-screen flex items-center justify-center">
       <Spinner />
     </FallbackContainer>
   );

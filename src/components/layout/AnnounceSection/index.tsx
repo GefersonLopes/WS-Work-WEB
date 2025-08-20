@@ -17,6 +17,7 @@ export default function AnnounceSection() {
     <AsyncFallback
       isLoading={isLoading}
       isError={isError || !carsModels}
+      isLength={carsModels.length > 0}
       errorContent="Erro ao carregar anuncios"
     >
       <MediasCard items={carsModels} path="/cars" title="Últimos anunciados" />

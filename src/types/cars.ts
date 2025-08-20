@@ -7,6 +7,7 @@ export interface Car {
   num_portas: number;
   cor: string;
   nome_modelo: string;
+  nome_marca: string;
   valor: number;
 }
 

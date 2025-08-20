@@ -7,6 +7,7 @@ import type { AsyncFallbackProps } from "./types";
 const AsyncFallback: React.FC<AsyncFallbackProps> = ({
   isLoading,
   isError,
+  isLength,
   errorContent = "Ocorreu um erro",
   loadingContent = <Spinner />,
   children,
@@ -24,6 +25,14 @@ const AsyncFallback: React.FC<AsyncFallbackProps> = ({
     return (
       <FallbackContainer className={className}>
         {errorContent}
+      </FallbackContainer>
+    );
+  }
+
+  if (isLength !== undefined && isLength === false) {
+    return (
+      <FallbackContainer className={"flex flex-col " + className}>
+        Está vazio, parece que nenhuma informação foi encontrada :(
       </FallbackContainer>
     );
   }
