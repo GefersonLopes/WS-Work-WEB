@@ -1,45 +1,145 @@
-import React, { type ImgHTMLAttributes, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
-export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+import Spinner from "../Spinner";
+
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
-  className?: string;
   fallbackSrc?: string;
-  srcSet?: string;
-  sizes?: string;
+  placeholder?: React.ReactNode;
+  aspectRatio?: string;
+  imgClassName?: string;
 }
 
 export const Image: React.FC<ImageProps> = ({
   src,
   alt,
-  className,
   fallbackSrc = "/assets/img/placeholder.png",
-  onError,
+  placeholder,
+  aspectRatio,
+  className,
+  imgClassName,
   loading = "lazy",
-  srcSet,
+  decoding = "async",
   sizes,
+  srcSet,
+  onLoad,
+  onError,
   ...rest
 }) => {
-  const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc);
+  const [status, setStatus] = useState<"idle" | "loading" | "loaded" | "error">(
+    "idle",
+  );
+  const [currentSrc, setCurrentSrc] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
-  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    if (fallbackSrc && currentSrc !== fallbackSrc) {
-      setCurrentSrc(fallbackSrc);
-    }
-    if (onError) onError(e);
-  };
+  const wrapperStyle = useMemo<React.CSSProperties>(() => {
+    if (!aspectRatio) return {};
+
+    const [w, h] = aspectRatio.split("/").map(Number);
+    return { aspectRatio: `${w} / ${h}` };
+  }, [aspectRatio]);
+
+  useEffect(() => {
+    let canceled = false;
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setStatus("loading");
+    setCurrentSrc(null);
+
+    const preload = (source: string): Promise<void> =>
+      new Promise((resolve, reject) => {
+        const img = new window.Image();
+        if (srcSet) img.srcset = srcSet;
+        if (sizes) img.sizes = sizes;
+        img.src = source;
+
+        const finish = () => {
+          if (canceled || controller.signal.aborted) return;
+          resolve();
+        };
+
+        if ("decode" in img) {
+          img.decode().then(finish).catch(reject);
+        } else {
+          (img as HTMLImageElement).onload = finish;
+          (img as HTMLImageElement).onerror = reject;
+        }
+      });
+
+    preload(src)
+      .then(() => {
+        if (controller.signal.aborted || canceled) return;
+        setCurrentSrc(src);
+        setStatus("loaded");
+      })
+      .catch(async () => {
+        if (controller.signal.aborted || canceled) return;
+        if (fallbackSrc && fallbackSrc !== src) {
+          try {
+            await preload(fallbackSrc);
+            if (controller.signal.aborted || canceled) return;
+            setCurrentSrc(fallbackSrc);
+            setStatus("loaded");
+          } catch {
+            setStatus("error");
+          }
+        } else {
+          setStatus("error");
+        }
+      });
+
+    return () => {
+      canceled = true;
+      controller.abort();
+    };
+  }, [src, srcSet, sizes, fallbackSrc]);
+
+  const showImg = status === "loaded" && currentSrc;
 
   return (
-    <img
-      src={currentSrc}
-      alt={alt}
-      loading={loading}
+    <div
       className={className}
-      onError={handleError}
-      srcSet={srcSet}
-      sizes={sizes}
-      {...rest}
-    />
+      style={{
+        ...wrapperStyle,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {!showImg && (
+        <div className="w-full h-full min-h-[120px] bg-gray-100">
+          {placeholder ?? (
+            <div className="flex items-center justify-center w-full h-full">
+              <Spinner />
+            </div>
+          )}
+        </div>
+      )}
+
+      {showImg && (
+        <img
+          src={currentSrc!}
+          alt={alt}
+          loading={loading}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          decoding={decoding as any}
+          sizes={sizes}
+          srcSet={srcSet}
+          className={imgClassName}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: showImg ? "block" : "none",
+          }}
+          onLoad={(e) => onLoad?.(e)}
+          onError={(e) => onError?.(e)}
+          {...rest}
+        />
+      )}
+    </div>
   );
 };
 
