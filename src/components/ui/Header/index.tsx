@@ -11,6 +11,7 @@ const Header = () => {
   const links = [
     { label: "Início", href: "/" },
     { label: "Modelos", href: "/cars" },
+    { label: "Marcas", href: "/brands" },
     { label: "Anunciar", href: "/announce" },
   ];
 

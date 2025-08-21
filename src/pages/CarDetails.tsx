@@ -7,7 +7,7 @@ import features from "../utils/data/featuresCars";
 import { currency } from "../utils/generics/formatMoneyBr";
 import { getModelImage } from "../utils/generics/modelImage";
 
-function CarPages() {
+function CarDetails() {
   const { id } = useParams<{ id: string }>();
 
   const { data: car, isLoading, isError } = useCar(id);
@@ -101,4 +101,4 @@ function CarPages() {
   );
 }
 
-export default CarPages;
+export default CarDetails;
