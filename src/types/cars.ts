@@ -36,3 +36,16 @@ export interface GetCar {
   num_portas: number;
   cor: string;
 }
+
+export interface combustivel {
+  value: "GASOLINA" | "ETANOL" | "DIESEL" | "HIBRIDO" | "ELETRICO";
+  label: string;
+}
+
+export interface PostCar {
+  modelo_id: number;
+  ano: number;
+  combustivel: "GASOLINA" | "ETANOL" | "DIESEL" | "HIBRIDO" | "ELETRICO";
+  num_portas: number;
+  cor: string;
+}

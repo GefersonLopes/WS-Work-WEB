@@ -1,4 +1,4 @@
-import { useInfiniteCars } from "../../../hooks/useInfinitePosts";
+import { useInfiniteCars } from "../../../hooks/useInfiniteCars";
 import { getModelImage } from "../../../utils/generics/modelImage";
 import AsyncFallback from "../AsyncFallback";
 import MediasCard from "../MediaCard";

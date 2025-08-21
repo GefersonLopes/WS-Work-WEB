@@ -9,7 +9,7 @@ import Title from "../components/layout/Title";
 import Button from "../components/ui/Button";
 import SearchInput from "../components/ui/SearchInput";
 import Spinner from "../components/ui/Spinner";
-import { useInfiniteCars } from "../hooks/useInfinitePosts";
+import { useInfiniteCars } from "../hooks/useInfiniteCars";
 
 type FormValues = {
   search: string;
@@ -69,7 +69,7 @@ function CarsPages() {
         isLoading={isLoading}
         isError={isError || !cars}
         isLength={cars.length > 0}
-        errorContent="Erro ao carregar anuncios"
+        errorContent="Erro ao carregar carros"
       >
         <main>
           <CarsList items={cars} />
