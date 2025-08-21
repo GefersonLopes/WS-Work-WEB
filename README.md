@@ -130,3 +130,7 @@ git clone https://github.com/GefersonLopes/WS-Work-WEB.git
 cd WS-Work-WEB
 docker compose up --build
 ```
+
+### 2. Abra o link:
+
+[Aplicação Front-End](http://localhost:5173) 
