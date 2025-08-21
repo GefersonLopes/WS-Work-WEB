@@ -1,10 +1,13 @@
 import clsx from "clsx";
 import { forwardRef, type InputHTMLAttributes } from "react";
 
+import ErrorMessage from "../ErrorMessage";
+
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   size?: "sm" | "md" | "lg";
   label?: string;
   error?: string;
+  className?: string;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -16,8 +19,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <>
-        <label className="text-white text-sm mb-[-12px]">{label}</label>
+      <div className={clsx("w-full", className)}>
+        <label className="text-sm mb-[-12px]">{label}</label>
         <input
           ref={ref}
           type={type}
@@ -32,8 +35,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
-        <span className="text-red-500 text-sm mt-[-15px]">{error}</span>
-      </>
+        <ErrorMessage error={error} />
+      </div>
     );
   },
 );
